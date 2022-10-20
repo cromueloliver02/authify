@@ -17,6 +17,8 @@ class ATFTextField extends StatelessWidget {
     return TextField(
       obscureText: obscureText,
       keyboardType: keyboardType,
+      autocorrect: false,
+      cursorColor: Colors.white,
       style: const TextStyle(
         color: Colors.white,
         fontSize: 18,
