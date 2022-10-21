@@ -8,14 +8,25 @@ class ATFLoginAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
 
-    return Container(
+    return SizedBox(
       width: screenSize.width * 0.45,
       height: screenSize.width * 0.45,
-      decoration: const BoxDecoration(
-        color: secondaryColor,
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          image: AssetImage('assets/images/main_avatar.png'),
+      child: Center(
+        child: TweenAnimationBuilder(
+          tween: Tween(begin: 0.0, end: 0.45),
+          duration: const Duration(milliseconds: 800),
+          curve: Curves.ease,
+          builder: (ctx, value, child) => Container(
+            width: screenSize.width * value,
+            height: screenSize.width * value,
+            decoration: const BoxDecoration(
+              color: secondaryColor,
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage('assets/images/main_avatar.png'),
+              ),
+            ),
+          ),
         ),
       ),
     );
