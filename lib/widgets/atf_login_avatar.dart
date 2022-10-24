@@ -13,9 +13,9 @@ class ATFLoginAvatar extends StatelessWidget {
       height: screenSize.width * 0.45,
       child: Center(
         child: TweenAnimationBuilder(
-          tween: Tween(begin: 0.0, end: 0.45),
-          duration: const Duration(milliseconds: 800),
-          curve: Curves.ease,
+          tween: Tween(begin: 0.1, end: 0.45),
+          duration: const Duration(milliseconds: 1000),
+          curve: Curves.bounceOut,
           builder: (ctx, value, child) => Container(
             width: screenSize.width * value,
             height: screenSize.width * value,
