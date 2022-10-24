@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
+import 'screens/home_screen.dart';
 import 'data.dart';
 
 class AuthifyApp extends StatelessWidget {
@@ -13,7 +14,11 @@ class AuthifyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: primaryColor,
       ),
-      home: const LoginScreen(),
+      initialRoute: LoginScreen.id,
+      routes: {
+        LoginScreen.id: (ctx) => const LoginScreen(),
+        HomeScreen.id: (ctx) => const HomeScreen(),
+      },
     );
   }
 }

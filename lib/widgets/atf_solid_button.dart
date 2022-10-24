@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../data.dart';
 
-class ATFButton extends StatelessWidget {
+class ATFSolidButton extends StatelessWidget {
   final String title;
   final VoidCallback onPressed;
 
-  const ATFButton({
+  const ATFSolidButton({
     super.key,
     required this.title,
     required this.onPressed,

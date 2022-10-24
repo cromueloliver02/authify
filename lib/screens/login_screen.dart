@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import '../widgets/atf_login_avatar.dart';
 import '../widgets/atf_text_field.dart';
-import '../widgets/atf_button.dart';
+import '../widgets/atf_solid_button.dart';
+import '../screens/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const id = '/login';
+
   const LoginScreen({super.key});
+
+  void onLogin(BuildContext ctx) => Navigator.pushReplacementNamed(
+        ctx,
+        HomeScreen.id,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +46,9 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 100),
               SizedBox(
                 width: screenSize.width * 0.75,
-                child: ATFButton(
+                child: ATFSolidButton(
                   title: 'LOGIN',
-                  onPressed: () {},
+                  onPressed: () => onLogin(context),
                 ),
               ),
             ],
