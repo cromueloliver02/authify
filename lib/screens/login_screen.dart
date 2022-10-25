@@ -4,15 +4,29 @@ import '../widgets/atf_text_field.dart';
 import '../widgets/atf_solid_button.dart';
 import '../screens/home_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static const id = '/login';
 
   const LoginScreen({super.key});
 
-  void onLogin(BuildContext ctx) => Navigator.pushReplacementNamed(
-        ctx,
-        HomeScreen.id,
-      );
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _animController;
+  late final Animation<double> _sizeAnimation;
+
+  void onLogin(BuildContext ctx) async {
+    await _animController.reverse();
+
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacementNamed(
+      ctx,
+      HomeScreen.id,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +40,7 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const ATFLoginAvatar(),
+              ATFLoginAvatar(animation: _sizeAnimation),
               const SizedBox(height: 70),
               SizedBox(
                 width: screenSize.width * 0.75,
@@ -56,5 +70,33 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _animController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+      reverseDuration: const Duration(milliseconds: 500),
+    );
+
+    final curveAnimation = CurvedAnimation(
+      parent: _animController,
+      curve: Curves.easeInOutBack,
+    );
+
+    _sizeAnimation = Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(curveAnimation);
+
+    _animController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animController.dispose();
+    super.dispose();
   }
 }

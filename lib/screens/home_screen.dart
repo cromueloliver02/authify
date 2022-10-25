@@ -4,10 +4,19 @@ import '../widgets/atf_outline_button.dart';
 import '../screens/login_screen.dart';
 import '../data.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const id = '/';
 
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _animController;
+  late final Animation<double> _sizeAnimation;
 
   void logout(BuildContext ctx) =>
       Navigator.pushReplacementNamed(ctx, LoginScreen.id);
@@ -23,7 +32,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const ATFLoginAvatar(),
+            ATFLoginAvatar(animation: _sizeAnimation),
             const SizedBox(height: 50),
             const Text(
               'John Doe',
@@ -45,5 +54,33 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _animController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+      reverseDuration: const Duration(milliseconds: 500),
+    );
+
+    final curveAnimation = CurvedAnimation(
+      parent: _animController,
+      curve: Curves.easeInOutBack,
+    );
+
+    _sizeAnimation = Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(curveAnimation);
+
+    _animController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animController.dispose();
+    super.dispose();
   }
 }

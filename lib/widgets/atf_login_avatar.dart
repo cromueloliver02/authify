@@ -1,24 +1,31 @@
-import 'package:authify/data.dart';
 import 'package:flutter/material.dart';
+import '../data.dart';
 
 class ATFLoginAvatar extends StatelessWidget {
-  const ATFLoginAvatar({super.key});
+  final Animation<double> animation;
+
+  const ATFLoginAvatar({
+    super.key,
+    required this.animation,
+  });
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
 
-    return SizedBox(
-      width: screenSize.width * 0.45,
-      height: screenSize.width * 0.45,
-      child: Center(
-        child: TweenAnimationBuilder(
-          tween: Tween(begin: 0.1, end: 0.45),
-          duration: const Duration(milliseconds: 1000),
-          curve: Curves.bounceOut,
-          builder: (ctx, value, child) => Container(
-            width: screenSize.width * value,
-            height: screenSize.width * value,
+    return Center(
+      child: AnimatedBuilder(
+        animation: animation,
+        builder: (ctx, child) => Transform(
+          alignment: Alignment.center,
+          transform: Matrix4.diagonal3Values(
+            animation.value,
+            animation.value,
+            1,
+          ),
+          child: Container(
+            width: screenSize.width * 0.45,
+            height: screenSize.width * 0.45,
             decoration: const BoxDecoration(
               color: secondaryColor,
               shape: BoxShape.circle,
