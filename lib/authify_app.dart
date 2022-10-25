@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'utils/fade_page_transition.dart';
+import 'utils/slide_page_transition.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'data.dart';
@@ -16,13 +17,15 @@ class AuthifyApp extends StatelessWidget {
         scaffoldBackgroundColor: primaryColor,
       ),
       initialRoute: LoginScreen.id,
-      routes: {
-        LoginScreen.id: (ctx) => const LoginScreen(),
-      },
       onGenerateRoute: (settings) {
         switch (settings.name) {
+          case LoginScreen.id:
+            return SlidePageTransition(
+              settings: settings,
+              child: const LoginScreen(),
+            );
           case HomeScreen.id:
-            return ECMFadePageTransition(
+            return FadePageTransition(
               settings: settings,
               child: const HomeScreen(),
             );

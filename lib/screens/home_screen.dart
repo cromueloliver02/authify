@@ -18,8 +18,12 @@ class _HomeScreenState extends State<HomeScreen>
   late final AnimationController _animController;
   late final Animation<double> _sizeAnimation;
 
-  void logout(BuildContext ctx) =>
-      Navigator.pushReplacementNamed(ctx, LoginScreen.id);
+  void logout(BuildContext ctx) async {
+    await _animController.reverse();
+
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacementNamed(ctx, LoginScreen.id);
+  }
 
   @override
   Widget build(BuildContext context) {
